@@ -21,6 +21,7 @@ export interface IMovieDetails
     directors: string[];
     countries: string[];
     casts: string[];
+    urlStream: string;
 }
 
 export interface IStreamSources {
@@ -56,6 +57,7 @@ export interface ISeries extends Omit<IMovies, 'qualityResolution'> {
 export interface ISeasonsList {
     season: number;
     totalEpisodes: number;
+    linkEps: string[];
 }
 
 export interface ISeriesDetails extends Omit<ISeries, 'url'> {

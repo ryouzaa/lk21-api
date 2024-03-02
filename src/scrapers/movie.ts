@@ -154,6 +154,7 @@ export const scrapeMovieDetails = async (
     obj['directors'] = directors;
     obj['countries'] = countries;
     obj['casts'] = casts;
+    obj['urlStream'] = $('div#loadPlayer > iframe').attr('src') ?? '';
 
     return obj;
 };

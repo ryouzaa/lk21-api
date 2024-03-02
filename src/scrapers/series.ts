@@ -83,10 +83,16 @@ export const scrapeSeriesDetails = async (
     const $: cheerio.Root = cheerio.load(res.data);
     const obj = {} as ISeriesDetails;
 
+    const {
+        headers: { host },
+        protocol,
+    } = req;
+
     const genres: string[] = [];
     const directors: string[] = [];
     const countries: string[] = [];
     const casts: string[] = [];
+    const linkEps: string[] = [];
 
     $('div.content').find('blockquote').find('strong').remove();
 
@@ -162,13 +168,31 @@ export const scrapeSeriesDetails = async (
     const epsElem: cheerio.Cheerio = $('div.serial-wrapper > div.episode-list');
     const seasons: ISeasonsList[] = [];
 
+    const epsUrlElem: cheerio.Cheerio = $('div.serial-wrapper > div.episode-list > a');
+
+    for (let i = epsUrlElem.length; i >= 1; i--) {
+        const urlLink = $(epsUrlElem[epsUrlElem.length - i]).attr('href');
+
+        var urlParts: string[] = [];
+
+        if (urlLink) {
+            // Memisahkan URL berdasarkan tanda "/"
+            urlParts = urlLink.split('/');
+        }
+
+        // Mengambil bagian setelah domain
+        const pathAfterDomain = urlParts.slice(3).join('/');
+        linkEps.push(urlLink ? `${protocol}://${host}/series/${pathAfterDomain}` : '');
+    }
+
     for (let i = epsElem.length; i >= 1; i--) {
         const obj2 = {} as ISeasonsList;
-
+        
         obj2['season'] = i;
         obj2['totalEpisodes'] = $(epsElem[epsElem.length - i]).find(
             'a.btn-primary'
         ).length;
+        obj2['linkEps'] = linkEps;
 
         seasons.push(obj2);
     }
