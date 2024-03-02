@@ -159,7 +159,11 @@ export const scrapeSeriesDetails = async (
     });
 
     obj['synopsis'] = $('div.content').find('blockquote').text();
-    obj['trailerUrl'] = `${$('div.player-content > iframe').attr('src')}`;
+    if (`${$('div.player-content > iframe').attr('src')}` !== "undefined"){
+        obj['trailerUrl'] = `${$('div.player-content > iframe').attr('src')}`
+    }else{
+        obj['trailerUrl'] = `${$('div#loadPlayer > iframe').attr('src')}`;
+    }
     obj['genres'] = genres;
     obj['directors'] = directors;
     obj['countries'] = countries;
