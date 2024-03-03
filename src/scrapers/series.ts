@@ -186,7 +186,7 @@ export const scrapeSeriesDetails = async (
 
         // Mengambil bagian setelah domain
         const pathAfterDomain = urlParts.slice(3).join('/');
-        linkEps.push(urlLink ? `${protocol}://${host}/series/${pathAfterDomain}` : '');
+        linkEps.push(urlLink ? `${pathAfterDomain}` : '');
     }
 
     for (let i = epsElem.length; i >= 1; i--) {
