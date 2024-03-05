@@ -15,7 +15,7 @@ export const latestSeries: TController = async (req, res) => {
         const { page = 0 } = req.query;
 
         const axiosRequest = await axios.get(
-            `${process.env.ND_URL}/latest-series${
+            `${process.env.ND_URL || "https://tv12.nontondrama.click"}/latest-series${
                 Number(page) > 1 ? `/page/${page}` : ''
             }`
         );
@@ -41,7 +41,7 @@ export const popularSeries: TController = async (req, res) => {
         const { page = 0 } = req.query;
 
         const axiosRequest = await axios.get(
-            `${process.env.ND_URL}/populer${
+            `${process.env.ND_URL || "https://tv12.nontondrama.click"}/populer${
                 Number(page) > 1 ? `/page/${page}` : ''
             }`
         );
@@ -67,7 +67,7 @@ export const recentReleaseSeries: TController = async (req, res) => {
         const { page = 0 } = req.query;
 
         const axiosRequest = await axios.get(
-            `${process.env.ND_URL}/release${
+            `${process.env.ND_URL || "https://tv12.nontondrama.click"}/release${
                 Number(page) > 1 ? `/page/${page}` : ''
             }`
         );
@@ -93,7 +93,7 @@ export const topRatedSeries: TController = async (req, res) => {
         const { page = 0 } = req.query;
 
         const axiosRequest = await axios.get(
-            `${process.env.ND_URL}/rating${
+            `${process.env.ND_URL || "https://tv12.nontondrama.click"}/rating${
                 Number(page) > 1 ? `/page/${page}` : ''
             }`
         );
@@ -118,7 +118,7 @@ export const seriesDetails: TController = async (req, res) => {
     try {
         const { id } = req.params;
 
-        const axiosRequest = await axios.get(`${process.env.ND_URL}/${id}`);
+        const axiosRequest = await axios.get(`${process.env.ND_URL || "https://tv12.nontondrama.click"}/${id}`);
 
         const payload = await scrapeSeriesDetails(req, axiosRequest);
 

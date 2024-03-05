@@ -17,7 +17,7 @@ export const streamMovie: TController = async (req, res) => {
         const movieId = originalUrl.split('/').reverse()[1];
 
         const axiosRequest = await axios.get(
-            `${process.env.LK21_URL}/${movieId}`
+            `${process.env.LK21_URL || "https://tv13.layarkaca21.autos"}/${movieId}`
         );
 
         const payload = await scrapeStreamSources(req, axiosRequest);
@@ -47,7 +47,7 @@ export const streamSeries: TController = async (req, res) => {
         const seriesId = _ids.join('-');
 
         const axiosRequest = await axios.get(
-            `${process.env.ND_URL}/${seriesId}-season-${season}-episode-${episode}-${year}`
+            `${process.env.ND_URL || "https://tv12.nontondrama.click"}/${seriesId}-season-${season}-episode-${episode}-${year}`
         );
 
         const payload = await scrapeStreamSources(req, axiosRequest);

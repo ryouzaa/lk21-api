@@ -14,7 +14,7 @@ type TController = (req: Request, res: Response, next?: Next) => Promise<void>;
 export const setOfYears: TController = async (req, res) => {
     try {
         const axiosRequest = await axios.get(
-            `${process.env.LK21_URL}/rekomendasi-film-pintar`
+            `${process.env.LK21_URL || "https://tv13.layarkaca21.autos"}/rekomendasi-film-pintar`
         );
 
         const payload = await scrapeSetOfYears(req, axiosRequest);
@@ -39,7 +39,7 @@ export const moviesByYear: TController = async (req, res) => {
         const { year } = req.params;
 
         const axiosRequest = await axios.get(
-            `${process.env.LK21_URL}/year/${year}${
+            `${process.env.LK21_URL || "https://tv13.layarkaca21.autos"}/year/${year}${
                 Number(page) > 1 ? `/page/${page}` : ''
             }`
         );

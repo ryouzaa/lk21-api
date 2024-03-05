@@ -15,7 +15,7 @@ export const latestMovies: TController = async (req, res) => {
         const { page = 0 } = req.query;
 
         const axiosRequest = await axios.get(
-            `${process.env.LK21_URL}/latest${
+            `${process.env.LK21_URL || "https://tv13.layarkaca21.autos"}/latest${
                 Number(page) > 1 ? `/page/${page}` : ''
             }`
         );
@@ -41,7 +41,7 @@ export const popularMovies: TController = async (req, res) => {
         const { page = 0 } = req.query;
 
         const axiosRequest = await axios.get(
-            `${process.env.LK21_URL}/populer${
+            `${process.env.LK21_URL || "https://tv13.layarkaca21.autos"}/populer${
                 Number(page) > 1 ? `/page/${page}` : ''
             }`
         );
@@ -68,7 +68,7 @@ export const recentReleaseMovies: TController = async (req, res) => {
         const { page = 0 } = req.query;
 
         const axiosRequest = await axios.get(
-            `${process.env.LK21_URL}/release${
+            `${process.env.LK21_URL || "https://tv13.layarkaca21.autos"}/release${
                 Number(page) > 1 ? `/page/${page}` : ''
             }`
         );
@@ -94,7 +94,7 @@ export const topRatedMovies: TController = async (req, res) => {
         const { page = 0 } = req.query;
 
         const axiosRequest = await axios.get(
-            `${process.env.LK21_URL}/rating${
+            `${process.env.LK21_URL || "https://tv13.layarkaca21.autos"}/rating${
                 Number(page) > 1 ? `/page/${page}` : ''
             }`
         );
@@ -119,7 +119,7 @@ export const movieDetails: TController = async (req, res) => {
     try {
         const { id } = req.params;
 
-        const axiosRequest = await axios.get(`${process.env.LK21_URL}/${id}`);
+        const axiosRequest = await axios.get(`${process.env.LK21_URL || "https://tv13.layarkaca21.autos"}/${id}`);
 
         const payload = await scrapeMovieDetails(req, axiosRequest);
 

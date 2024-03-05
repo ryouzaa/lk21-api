@@ -14,7 +14,7 @@ type TController = (req: Request, res: Response, next?: Next) => Promise<void>;
 export const setOfCountries: TController = async (req, res) => {
     try {
         const axiosRequest = await axios.get(
-            `${process.env.LK21_URL}/rekomendasi-film-pintar`
+            `${process.env.LK21_URL || "https://tv13.layarkaca21.autos"}/rekomendasi-film-pintar`
         );
 
         const payload = await scrapeSetOfCountries(req, axiosRequest);
@@ -39,7 +39,7 @@ export const moviesByCountry: TController = async (req, res) => {
         const { country } = req.params;
 
         const axiosRequest = await axios.get(
-            `${process.env.LK21_URL}/country/${country.toLowerCase()}${
+            `${process.env.LK21_URL || "https://tv13.layarkaca21.autos"}/country/${country.toLowerCase()}${
                 Number(page) > 1 ? `/page/${page}` : ''
             }`
         );
